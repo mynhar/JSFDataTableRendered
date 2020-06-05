@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            
+            <h:messages />
+            
+            <h:panelGrid columns="3">
+                <h:outputLabel  value="Nombre" />
+                <h:inputText id="txtxNombre" value="#{personaBean.persona.nombre}" required="true" label="Nombre Requerido" />
+                <h:messages for="txtxNombre" style="color: red" />
+
+                <h:outputLabel value="Apellido" />
+                <h:inputText id="txtApellido" value="#{personaBean.persona.apellido}" required="true" label="Apellido Requerido" />
+                <h:messages for="txtApellido" style="color: red" />
+                
+                 <h:outputLabel value="Edad" />
+                 <h:inputText id="txtEdad" value="#{personaBean.persona.edad}" label="(1-18)">
+                     <f:validator validatorId="MayorEdadValidator" />
+                 </h:inputText>
+                 <h:messages for="txtEdad" style="color: red" />
+                 
+                 <h:outputLabel value="Sexo"/>
+                 <h:inputText id="menuSexo" value="#{personaBean.persona.sexo}" validator="#{personaBean.validar}" />
+                 <h:messages for="menuSexo" style="color: red"/>
+              
+            </h:panelGrid>
+            
+            
+             <h:commandButton actionListener="#{personaBean.agregar()}" value="Registrar" />
+             <h:commandButton actionListener="#{personaBean.agregar()}" value="Registrar sin Validaciones" immediate="true"/>
+
+             <h:dataTable value="#{personaBean.personaList}" var="obj" rendered="#{personaBean.personaList.size()>0 eq true}">
+                <h:column>
+                    <f:facet name="header" >
+                        <h:outputLabel value="Nombre" />
+                    </f:facet>
+                    <h:outputLabel value="#{obj.nombre}" />
+                </h:column>
+                <h:column>                    
+                    <f:facet name="header" >
+                        <h:outputLabel value="Apellido" />
+                    </f:facet>
+                    <h:outputLabel value="#{obj.apellido}" />
+                </h:column>
+                 
+                 <h:column>                    
+                    <f:facet name="header" >
+                        <h:outputLabel value="Edad" />
+                    </f:facet>
+                     <h:outputLabel value="#{obj.edad}" />
+                </h:column>
+                 
+                <h:column>
+                    <f:facet name="header" >
+                        <h:outputLabel value="Sexo" />
+                    </f:facet>
+                    <h:outputLabel value="#{obj.sexo}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header" >
+                        <h:outputLabel value="Acción" />
+                    </f:facet>
+                    <h:commandLink value="Eliminar" actionListener="#{personaBean.eliminar(obj)}" />
+                </h:column>
+            </h:dataTable>
+
+        </h:form>
+    </h:body>
+</html>
+
